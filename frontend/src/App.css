@@ -1,0 +1,38 @@
+:root {
+    /* Colors */
+    --purple: #7f24dd;
+    --yellow: #F7D047;
+    --blackboard: #191819;
+    --midnight: #161922;
+    --rasbery: #FC006D;
+  
+    /* Spacing */
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 32px;
+  
+    /* Typography */
+    --font-family: 'Poppins', sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+  
+    /* Borders */
+    --border-radius: 4px;
+    --border-width: 1px;
+  
+    /* Shadows */
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+    /* Z-index */
+    --z-index-header: 1000;
+    --z-index-modal: 1050;
+  }
+  
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
