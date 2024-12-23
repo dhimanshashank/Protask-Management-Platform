@@ -1,21 +1,28 @@
 import React, { useState } from "react";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to control sidebar visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeSection, setActiveSection] = useState("Dashboard");
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const toggleProjectDropdown = () => {
+    setIsProjectDropdownOpen(!isProjectDropdownOpen);
+    setActiveSection("Projects");
+  };
+
   return (
     <div
-      className={`h-screen bg-midnight p-3 z-50 sidebar transition-all duration-300 ease-in-out border-r border-gray-500 border-opacity-50 ${
+      className={`h-screen bg-midnight p-2 pt-1 z-50 sidebar transition-all duration-300 ease-in-out border-r border-gray-500 border-opacity-50 ${
         isSidebarOpen ? "w-1/4" : "w-20"
-      } overflow-hidden`}
+      } flex flex-col`}
     >
       {/* Header of Sidebar */}
-      <div className="flex items-center mb-4">
+      <div className="flex items-center mb-4 border-b border-gray-500 border-opacity-50 mb-6">
         <img
           src={"../src/assets/Protask.png"}
           alt="logo"
@@ -24,12 +31,12 @@ const Sidebar = () => {
           }`}
         />
         {isSidebarOpen && (
-          <h1 className="text-white cursor-pointer text-2xl font-bold ml-2">
+          <h1 className="text-white cursor-pointer text-2xl font-bold">
             protask
           </h1>
         )}
         <button
-          className="ml-auto mr-4 p-2 rounded focus:outline-none"
+          className="ml-auto p-2 rounded focus:outline-none"
           onClick={toggleSidebar}
         >
           <img
@@ -41,7 +48,12 @@ const Sidebar = () => {
       </div>
 
       {/* User Profile */}
-      <div className="flex items-center mb-6">
+      <div
+        className={`flex items-center mb-6 p-1 rounded-full ${
+          activeSection === "Profile" ? "bg-[#39334F]" : ""
+        }`}
+        onClick={() => setActiveSection("Profile")}
+      >
         <img
           src={"../src/assets/sidebar/user-solid.svg"}
           alt="userProfile"
@@ -92,35 +104,48 @@ const Sidebar = () => {
           />
           {isSidebarOpen && <h2 className="text-white text-sm">Favorites</h2>}
         </div>
-      </div>
 
-      {/* Features Section */}
-      <div>
-        <div>
-          <div className="flex items-center cursor-pointer p-2 pl-1">
-            {isSidebarOpen && (
-              <img
-                src={"../src/assets/sidebar/caret-up-solid.svg"}
-                alt="projects"
-                className="w-5 h-5 ml-1 mr-2"
-              />
-            )}
-            {isSidebarOpen ? (
-              <h2 className="text-white text-md">Project Management</h2>
-            ) : (
-              <h2 className="text-white text-sm">Projects</h2>
-            )}
-            {isSidebarOpen && (
-              <img
-                src={"../src/assets/sidebar/plus-solid.svg"}
-                alt="add-project"
-                className="w-5 h-5 cursor-pointer ml-auto mr-4"
-              />
-            )}
-          </div>
+        {/* Features Section */}
+        <div
+          className={`flex items-center cursor-pointer p-2 rounded-full mt-4 ${
+            activeSection === "Projects" ? "bg-[#39334F]" : ""
+          }`}
+          onClick={toggleProjectDropdown}
+        >
+          {isSidebarOpen && (
+            <img
+              src={
+                isProjectDropdownOpen
+                  ? "../src/assets/sidebar/caret-down-solid.svg"
+                  : "../src/assets/sidebar/caret-up-solid.svg"
+              }
+              alt="caret"
+              className="w-4 h-4 ml-1 mr-3"
+            />
+          )}
+          {!isSidebarOpen && (
+            <AssignmentIcon
+              className="w-5 h-5 ml-2 mr-4 text-white"
+              onClick={toggleProjectDropdown}
+            />
+          )}
+          {isSidebarOpen && <h2 className="text-white text-sm">Projects</h2>}
+          {isSidebarOpen && (
+            <img
+              src={"../src/assets/sidebar/plus-solid.svg"}
+              alt="add-project"
+              className="w-4 h-4 cursor-pointer ml-auto mr-4"
+            />
+          )}
+        </div>
 
-          {/* Project List */}
-          <div className={`ml-12 ${!isSidebarOpen && "hidden"}`}>
+        {/* Project List */}
+        {isSidebarOpen && (
+          <div
+            className={`ml-12 transition-all duration-300 ${
+              isProjectDropdownOpen ? "block" : "hidden"
+            }`}
+          >
             {["To-do List", "Read Me", "This Week", "Completed"].map(
               (project, index) => (
                 <div
@@ -138,34 +163,36 @@ const Sidebar = () => {
                         : "circle-check-regular.svg"
                     }`}
                     alt={project}
-                    className="w-5 h-5 mr-4 opacity-50"
+                    className="w-4 h-4 mr-4 opacity-50"
                   />
                   <h2 className="text-white text-sm opacity-50">{project}</h2>
                 </div>
               )
             )}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Bottom Section */}
-      <div className="absolute bottom-0">
-        <div className="flex items-center cursor-pointer p-2">
+     {/* Bottom Section */}
+      <div className="mt-auto">
+        <div className="flex items-center cursor-pointer p-2 hover:bg-[#FFCCCB] opacity-70 transition-all duration-300 rounded-full hover:scale-102 hover:opacity-100 hover:text-black">
           <img
             src="../src/assets/sidebar/trash-solid.svg"
             alt="delete-icon"
-            className={`w-5 h-5 ml-1 mr-4 opacity-50 ${
-              !isSidebarOpen && "ml-2"
-            }`}
+            className={`w-5 h-5 ml-1 mr-4 ${!isSidebarOpen && "ml-2"}`}
           />
-          {isSidebarOpen && <h2 className="text-white text-sm">Trash</h2>}
+          {isSidebarOpen && (
+            <h2 className="text-white text-sm hover:text-black w-full">
+              Trash
+            </h2>
+          )}
         </div>
         <div
-          className={`w-full border-t border-gray-200 mt-2 opacity-50 ${
+          className={`w-full border-t border-gray-400 mt-2 opacity-50 ${
             isSidebarOpen ? "px-8" : ""
           }`}
         ></div>
-        <div className="flex items-center cursor-pointer p-2 mt-2 mb-1">
+        <div className="flex items-center cursor-pointer p-2 mt-2 mb-1 hover:bg-green-700 opacity-70 transition-all duration-200 rounded-full hover:scale-102">
           <img
             src={"../src/assets/sidebar/plus-solid.svg"}
             alt="add-app"
