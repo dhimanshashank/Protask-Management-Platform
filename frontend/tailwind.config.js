@@ -6,6 +6,21 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        typing: {
+          "0%": { width: "0%" },
+          "50%": { width: "70%" },
+          // "100%": { width: "0%" },
+        },
+        blink: {
+          "0%, 75%": { borderColor: "transparent" },
+          "50%": { borderColor: "white" },
+        },
+      },
+      animation: {
+        typing: "typing 8s steps(40, end) infinite, blink 1s infinite",
+      },
+
       colors: {
         purple: "var(--purple)",
         yellow: "var(--yellow)",
