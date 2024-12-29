@@ -18,14 +18,14 @@ const Navbar = () => {
       <ul className="flex items-center">
         <li className="mx-4 cursor-pointer hover:text-rasbery">Home</li>
         <li className="mx-4 cursor-pointer hover:text-rasbery">Contact</li>
-        <li className="mx-4 cursor-pointer text-rasbery font-bold text-xl">
-          <Link to="/login" className="hover:underline">
+        <li className="mx-4 cursor-pointer font-bold text-xl">
+          <Link to="/login" className="hover:text-purple">
             Login
           </Link>
         </li>
         <span>|</span>
         <li className="mx-4 cursor-pointer font-bold text-xl">
-          <Link to="/signup" className="hover:underline">
+          <Link to="/signup" className="hover:text-purple">
             Signup
           </Link>
         </li>
